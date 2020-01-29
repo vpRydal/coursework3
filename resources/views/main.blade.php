@@ -9,7 +9,7 @@
         <ul>
             @foreach($users as $user)
                 <li>
-                    <a href="main/{{$user->login}}" >
+                    <a href="main/user_profile/{{$user->login}}" >
                         <?= $user->login ."\t". $user->fio; ?>
                     </a>
                 </li>
