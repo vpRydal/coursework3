@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\User;
+use App\Models\User;
 
 class UsersController extends Controller
 {
@@ -13,7 +13,7 @@ class UsersController extends Controller
     }
 
     public function toProfile ($login) {
-        $currentUser = User::where('login', $login)->first();
+
         return view('user_profile', compact('currentUser'));
     }
 }
