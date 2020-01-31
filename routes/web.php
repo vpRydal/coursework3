@@ -19,4 +19,8 @@ Route::get('main/user_profile/{user}', 'UsersController@toProfile');
 
 Auth::routes();
 
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/admin', 'AdminController@index')->name('admin');
+});
+
 Route::get('/home', 'HomeController@index')->name('home');
