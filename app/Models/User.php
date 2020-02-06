@@ -47,4 +47,20 @@ class User extends Authenticatable
     public function role () {
         return $this->belongsTo(Role::class);
     }
+
+    public function news () {
+        return $this->hasMany(News::class);
+    }
+
+
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @param string $role
+     * @return boolean
+     */
+
+    public function hasRole (string $role) {
+        return $this->role->name == $role;
+    }
 }

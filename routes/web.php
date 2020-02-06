@@ -11,16 +11,38 @@
 |
 */
 
-use Illuminate\Support\Facades\DB;
-
-Route::get('main', 'UsersController@index');
-Route::get('main/user_profile/{user}', 'UsersController@toProfile');
-
-
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function(){
-    Route::get('/admin', 'AdminController@index')->name('admin');
+// Admin/
+Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
+    Route::get('/', 'AdminController@index')
+        ->name('home');
+    // Admin/News/
+    Route::group(['namespace' => 'News', 'prefix' => 'news'], function () {
+        Route::resource('/', 'NewsController', [
+            'only' => [
+                'index',
+                'create',
+
+            ],
+            'names' => [
+                'index' => 'news.table',
+                'create' => 'news.create',
+
+            ]
+        ]);
+        Route::get('multiple-destroy', 'NewsController@multipleDestroy')
+            ->name('news.multiple.destroy');
+    });
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+// /
+Route::resource('/', 'IndexController', [
+    'only' => [
+        'index'
+    ],
+    'names' => [
+        'index' => 'home'
+    ]
+]);
+

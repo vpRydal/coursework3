@@ -14,6 +14,11 @@
                         </div>
                     @endif
 
+                    @php
+                        if (Auth::user()->hasRole('Пользователь')) echo 'Вы пользователь';
+                        else echo 'Вы не пользователь';
+                    @endphp
+
                     You are logged in!
                 </div>
             </div>
