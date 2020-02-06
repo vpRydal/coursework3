@@ -1,0 +1,1 @@
+https://web-programming.com.ua/podklyuchaem-ckeditor-k-laravel-5-1-i-integriruem-v-nego-fajlovyj-menedzher-elfinder/

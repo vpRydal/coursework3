@@ -12,6 +12,38 @@
 
 namespace App\Models{
 /**
+ * App\Models\News
+ *
+ * @property int $id
+ * @property string $img_path
+ * @property string $title
+ * @property string $slug
+ * @property string $text
+ * @property string $html_text
+ * @property int $is_published
+ * @property int $author_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\User $User
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News query()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereAuthorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereHtmlText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereImgPath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereIsPublished($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereText($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereUpdatedAt($value)
+ */
+	class News extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
  * App\Models\Role
  *
  * @property int $id
@@ -47,6 +79,8 @@ namespace App\Models{
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\News[] $news
+ * @property-read int|null $news_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read int|null $notifications_count
  * @property-read \App\Models\Role $role
