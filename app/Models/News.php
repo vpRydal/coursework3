@@ -9,12 +9,17 @@ class News extends Model
     protected $fillable = [
         'img_path',
         'title',
-        'text',
         'is_published',
         'author_id',
         'html_text',
-
+        'description',
+        'slug'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function User () {
         return $this->belongsTo(User::class);

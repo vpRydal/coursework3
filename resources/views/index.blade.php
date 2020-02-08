@@ -5,13 +5,13 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
-                    <img src="{{asset('imgs/slider/1.jpg')}}" class="d-block w-100" alt="...">
+                    <img src="{{asset('/files/img/slider/1.jpg')}}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('imgs/slider/2.jpg')}}" class="d-block w-100" alt="...">
+                    <img src="{{asset('/files/img/slider/2.jpg')}}" class="d-block w-100" alt="...">
                 </div>
                 <div class="carousel-item">
-                    <img src="{{asset('imgs/slider/3.jpg')}}" class="d-block w-100" alt="...">
+                    <img src="{{asset('/files/img/slider/3.jpg')}}" class="d-block w-100" alt="...">
                 </div>
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -35,7 +35,7 @@
             <li class="">
                 <div class="about-border ">
                     <div class="">
-                        <img  class="" src="{{asset('imgs/about/contact.png')}}">
+                        <img  class="" src="{{asset('/files/img/about/contact.png')}}">
                         <a>
                             Бесплатная консультация специалистов
                         </a>
@@ -45,7 +45,7 @@
             <li class="">
                 <div class="about-border">
                     <div class="">
-                        <img src="{{asset('imgs/about/cosmetics.png')}}">
+                        <img src="{{asset('/files/img/about/cosmetics.png')}}">
                         <a>
                             Оригинальная и сиртифицированная косметика
                         </a>
@@ -55,7 +55,7 @@
             <li class="">
                 <div class="about-border">
                     <div class="">
-                        <img src="{{asset('imgs/about/customer.png')}}">
+                        <img src="{{asset('/files/img/about/customer.png')}}">
                         <a>
                             Многочисленные честные отзывы покупателей
                         </a>
@@ -65,7 +65,7 @@
             <li class="">
                 <div class="about-border">
                     <div class="">
-                        <img src="{{asset('imgs/about/gift.png')}}">
+                        <img src="{{asset('/files/img/about/gift.png')}}">
                         <a>
                             Многочисленные честные отзывы покупателей
                         </a>
@@ -89,19 +89,19 @@
                     <ul class="carousel-in news-carousel-ul">
                         <li class='popular-product-border'>
                             <div>
-                                <img src="{{asset("imgs/news/н1.jpg")}}">
+                                <img src="{{asset("/files/img/news/н1.jpg")}}">
                                 <a></a>
                             </div>
                         </li>
                         <li class='popular-product-border'>
                             <div>
-                                <img src="{{asset("imgs/news/н1.jpg")}}">
+                                <img src="{{asset("/files/img/news/н1.jpg")}}">
                                 <a></a>
                             </div>
                         </li>
                         <li class='popular-product-border'>
                             <div>
-                                <img src="{{asset("imgs/news/н1.jpg")}}">
+                                <img src="{{asset("/files/img/news/н1.jpg")}}">
                                 <a></a>
                             </div>
                         </li>
@@ -112,19 +112,19 @@
                     <ul class="carousel-in news-carousel-ul">
                         <li class='popular-product-border'>
                             <div>
-                                <img src="{{asset("imgs/news/н1.jpg")}}">
+                                <img src="{{asset("/files/img/news/н1.jpg")}}">
                                 <a></a>
                             </div>
                         </li>
                         <li class='popular-product-border'>
                             <div>
-                                <img src="{{asset("imgs/news/н1.jpg")}}">
+                                <img src="{{asset("/files/img/news/н1.jpg")}}">
                                 <a></a>
                             </div>
                         </li>
                         <li class='popular-product-border'>
                             <div>
-                                <img src="{{asset("imgs/news/н1.jpg")}}">
+                                <img src="{{asset("/files/img/news/н1.jpg")}}">
                                 <a></a>
                             </div>
                         </li>

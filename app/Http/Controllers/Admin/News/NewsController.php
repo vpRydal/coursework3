@@ -3,11 +3,20 @@
 namespace App\Http\Controllers\Admin\News;
 
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Requests\NewsRequest;
 use App\Models\News;
 use App\Repositories\NewsRepository;
+use Auth;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
+
+
+use Image;
+use Str;
+use Symfony\Component\Console\Input\Input;
 
 
 class NewsController extends AdminController
@@ -34,6 +43,7 @@ class NewsController extends AdminController
      *
      * @return Factory|View
      */
+
     public function create()
     {
         $this->template .= '.create';
@@ -43,46 +53,65 @@ class NewsController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(NewsRequest $request)
     {
-        //
+        $data = $request->all();
+
+        if (empty($data['slug']))
+            $data['slug'] = Str::slug($data['title']);
+        $data['author_id'] = Auth::user()->id;
+
+        $news = News::create($data);
+        return redirect()->route('news.change', $data['slug']);
+
+/*      dd($request->input('text'));
+        $img = $request->file('img');
+        $disk = Storage::disk('public');
+        $img = Image::make($img)->resize(300, 300);
+
+        $img->save('storage/files/images/news/test.jpg');*/
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\News  $news
-     * @return \Illuminate\Http\Response
+     * @param News $news
+     * @return Response
      */
     public function show(News $news)
     {
-        //
+        dd(__METHOD__);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\News  $news
-     * @return \Illuminate\Http\Response
+     * @param  News  $news
+     * @return Response
      */
     public function edit(News $news)
     {
-        //
+        dd($news);
+        $this->template .= '.change';
+        $this->vars['readonly'] = [
+            'slug' => 'readonly',
+        ];
+        return $this->renderOutput();
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\News  $news
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param  News  $news
+     * @return Response
      */
     public function update(Request $request, News $news)
     {
-        //
+        dd(__METHOD__);
     }
 
     /**
@@ -107,5 +136,34 @@ class NewsController extends AdminController
             return redirect()->back()->with('status', false);
 
 
+    }
+    public function upload(Request $request)
+    {
+
+        if($request->hasFile('upload')) {
+            //get filename with extension
+            $filenamewithextension = $request->file('upload')->getClientOriginalName();
+
+            //get filename without extension
+            $filename = pathinfo($filenamewithextension, PATHINFO_FILENAME);
+
+            //get file extension
+            $extension = $request->file('upload')->getClientOriginalExtension();
+
+            //filename to store
+            $filenametostore = $filename.'_'.time().'.'.$extension;
+
+            //Upload File
+            $request->file('upload')->storeAs('public/uploads', $filenametostore);
+
+            $CKEditorFuncNum = $request->input('CKEditorFuncNum');
+            $url = asset('storage/uploads/'.$filenametostore);
+            $msg = 'Image successfully uploaded';
+            $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
+
+            // Render HTML output
+            @header('Content-type: text/html; charset=utf-8');
+            echo $re;
+        }
     }
 }
