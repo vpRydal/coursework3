@@ -15,31 +15,32 @@ Auth::routes();
 
 // Admin/
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
-    Route::get('/', 'AdminController@index')
-        ->name('home');
     // Admin/News/
     Route::group(['namespace' => 'News', 'prefix' => 'news'], function () {
-        Route::resource('/', 'NewsController', [
+        Route::resource('', 'NewsController', [
             'only' => [
                 'index',
                 'create',
                 'store',
-                'show',
 
             ],
             'names' => [
                 'index' => 'news.table',
                 'create' => 'news.create',
                 'store' => 'news.save',
-                'show' => 'news.change',
 
             ]
         ]);
+        Route::get('{news}/edit', 'NewsController@edit')
+            ->name('news.change');
         Route::get('multiple-destroy', 'NewsController@multipleDestroy')
             ->name('news.multiple.destroy');
         Route::post('ckeditor/image_upload/', 'NewsController@upload')
             ->name('upload');
     });
+
+    Route::get('', 'AdminController@index')
+        ->name('home');
 });
 
 // /

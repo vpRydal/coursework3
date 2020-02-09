@@ -8,6 +8,7 @@ use App\Models\News;
 use App\Repositories\NewsRepository;
 use Auth;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
@@ -53,19 +54,19 @@ class NewsController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse
+     * @param NewsRequest $request
+     * @return RedirectResponse
      */
     public function store(NewsRequest $request)
     {
         $data = $request->all();
-
+        dd($data);
         if (empty($data['slug']))
             $data['slug'] = Str::slug($data['title']);
         $data['author_id'] = Auth::user()->id;
 
         $news = News::create($data);
-        return redirect()->route('news.change', $data['slug']);
+        return redirect()->route('news.change', $news);
 
 /*      dd($request->input('text'));
         $img = $request->file('img');
@@ -90,15 +91,22 @@ class NewsController extends AdminController
      * Show the form for editing the specified resource.
      *
      * @param  News  $news
-     * @return Response
+     * @return Factory|View
      */
     public function edit(News $news)
     {
-        dd($news);
         $this->template .= '.change';
         $this->vars['readonly'] = [
             'slug' => 'readonly',
         ];
+        $this->vars['title'] = $news->title;
+        $this->vars['slug'] = $news->slug;
+        $this->vars['description'] = $news->description;
+        $this->vars['date-change'] = $news->updated_at;
+        $this->vars['date-create'] = $news->created_at;
+        if ($news->is_published)
+            $this->vars['date-publishing'] = $news->is_published;
+
         return $this->renderOutput();
     }
 
