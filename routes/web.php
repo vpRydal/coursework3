@@ -16,31 +16,30 @@ Auth::routes();
 // Admin/
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
     // Admin/News/
-    Route::group(['namespace' => 'News', 'prefix' => 'news'], function () {
-        Route::resource('', 'NewsController', [
-            'only' => [
+    Route::group(['namespace' => 'News', 'as' => 'news.'], function () {
+        Route::resource('news', 'NewsController')
+            ->only([
                 'index',
                 'create',
                 'store',
+                'edit',
+                'update'
+            ])
+            ->names([
+                'index' => 'table',
+                'store' => 'save',
+                'edit' => 'change',
+                'create' => 'create',
+                'update' => 'update'
+            ]);
+        Route::group(['prefix' => 'news'], function () {
+            Route::get('multiple-destroy', 'NewsController@multipleDestroy')
+                ->name('multiple.destroy');
+            Route::post('ckeditor/image_upload/{news}', 'NewsController@upload')
+                ->name('upload');
 
-            ],
-            'names' => [
-                'index' => 'news.table',
-                'create' => 'news.create',
-                'store' => 'news.save',
-
-            ]
-        ]);
-        Route::get('{news}/edit', 'NewsController@edit')
-            ->name('news.change');
-        Route::get('multiple-destroy', 'NewsController@multipleDestroy')
-            ->name('news.multiple.destroy');
-        Route::post('ckeditor/image_upload/', 'NewsController@upload')
-            ->name('upload');
+        });
     });
-
-    Route::get('', 'AdminController@index')
-        ->name('home');
 });
 
 // /

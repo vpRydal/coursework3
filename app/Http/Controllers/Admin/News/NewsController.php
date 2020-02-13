@@ -48,6 +48,7 @@ class NewsController extends AdminController
     public function create()
     {
         $this->template .= '.create';
+
         return $this->renderOutput();
     }
 
@@ -60,7 +61,6 @@ class NewsController extends AdminController
     public function store(NewsRequest $request)
     {
         $data = $request->all();
-        dd($data);
         if (empty($data['slug']))
             $data['slug'] = Str::slug($data['title']);
         $data['author_id'] = Auth::user()->id;
@@ -99,13 +99,11 @@ class NewsController extends AdminController
         $this->vars['readonly'] = [
             'slug' => 'readonly',
         ];
-        $this->vars['title'] = $news->title;
-        $this->vars['slug'] = $news->slug;
-        $this->vars['description'] = $news->description;
-        $this->vars['date-change'] = $news->updated_at;
-        $this->vars['date-create'] = $news->created_at;
+        $this->vars['news'] = $news;
         if ($news->is_published)
             $this->vars['date-publishing'] = $news->is_published;
+
+
 
         return $this->renderOutput();
     }
@@ -117,22 +115,23 @@ class NewsController extends AdminController
      * @param  News  $news
      * @return Response
      */
-    public function update(Request $request, News $news)
+    public function update(Request $request)
     {
-        dd(__METHOD__);
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param Request $request
-     * @param $id
+     * @param News $news
      * @return void
      */
-    public function destroy(Request $request, $id)
+    public function destroy(Request $request, News $news)
     {
-        dd(__METHOD__);
+        News::destroy($news->id);
     }
+
     public function multipleDestroy(Request $request)
     {
         $success = $this->newsRep->multipleDestroy($request);
@@ -145,9 +144,8 @@ class NewsController extends AdminController
 
 
     }
-    public function upload(Request $request)
+    public function upload(Request $request, News $news)
     {
-
         if($request->hasFile('upload')) {
             //get filename with extension
             $filenamewithextension = $request->file('upload')->getClientOriginalName();
@@ -158,15 +156,15 @@ class NewsController extends AdminController
             //get file extension
             $extension = $request->file('upload')->getClientOriginalExtension();
 
-            //filename to store
-            $filenametostore = $filename.'_'.time().'.'.$extension;
+
+            $disk = Storage::disk();
+            $filePath= 'public/files/images/news/' . $news->slug;
 
             //Upload File
-            $request->file('upload')->storeAs('public/uploads', $filenametostore);
-
+            $newNameAndPath = $disk->putFile($filePath, $request->file('upload'));
             $CKEditorFuncNum = $request->input('CKEditorFuncNum');
-            $url = asset('storage/uploads/'.$filenametostore);
-            $msg = 'Image successfully uploaded';
+            $url = asset($disk->url($newNameAndPath));
+            $msg = 'Изображение успешно загруженно';
             $re = "<script>window.parent.CKEDITOR.tools.callFunction($CKEditorFuncNum, '$url', '$msg')</script>";
 
             // Render HTML output

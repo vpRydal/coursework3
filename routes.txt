@@ -1,77 +1,37 @@
-Я новичок в веб программировании и laravel изучаю только максимум неделю, так что не судите строго, если есть какие-то ошибки в оформлении вопроса или просто в коде укажите на них, пожалуйста. Теперь сама суть, у меня есть ресурс контроллер NewsController, в нем все дефолтные методы и пару своих, суть в том что методы edit и show не работают, вот их листинг
-
-    public function show(News $news)
-    {
-        dd(__METHOD__);
-    }
-    public function edit(News $news)
-    {
-        dd(__METHOD__);
-    }
-News это модель статей,в ней переопределен метод
-
-    public function getRouteKeyName()
-    {
-        return 'slug';
-    }
-То есть в методы edit и show я должен автоматом получать модель по их slug.
-
-Вот мои роуты
-
-    Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
-        Route::group(['namespace' => 'News', 'prefix' => 'news'], function () {
-            Route::resource('/', 'NewsController', [
-                'only' => [
-                    'index',
-                    'create',
-                    'store',
-                    'show',
-    
-                ],
-                'names' => [
-                    'index' => 'news.table',
-                    'create' => 'news.create',
-                    'store' => 'news.save',
-                    'show' => 'news.change',
-    
-                ]
-            ]);
-    });
-Вот эти же роуты при помощи route:list
-```
-    | GET|HEAD  | admin                            | home                  | App\Http\Controllers\Admin\AdminController@index                       | web,auth,admin
-    | GET|HEAD | admin/news                       | news.table            | App\Http\Controllers\Admin\News\NewsController@index                   | web,auth,admin
-    | POST     | admin/news                       | news.save             | App\Http\Controllers\Admin\News\NewsController@store                   | web,auth,admin
-    | POST     | admin/news/ckeditor/image_upload | upload                | App\Http\Controllers\Admin\News\NewsController@upload                  | web,auth,admin
-    | GET|HEAD | admin/news/create                | news.create           | App\Http\Controllers\Admin\News\NewsController@create                  | web,auth,admin
-    | GET|HEAD | admin/news/multiple-destroy      | news.multiple.destroy | App\Http\Controllers\Admin\News\NewsController@multipleDestroy         | web,auth,admin
-    | GET|HEAD | admin/news/{}                    | news.change           | App\Http\Controllers\Admin\News\NewsController@show                    | web,auth,admin
-```
-У роута news.change, который и есть show нет даже параметра.
-В похожем вопросе ( https://ru.stackoverflow.com/questions/454500/laravel-5-проблема-с-контроллером-ресурсов ) было ответом убрать "/" из роутов, в моем случае это ничего не меняет. Но если я не буду использовать "prefix" в роутах, то есть 
-```
-    Route::group(['namespace' => 'Admin'], function(){
-        Route::group(['namespace' => 'News'], function () {
-            Route::resource('admin/news', 'NewsController', [
-                'only' => [...],
-                'names' => [...]
-            ]);
-    });
-```
-Роуты отображаются верно
-```
-|        | GET|HEAD   | admin                          | home                  | App\Http\Controllers\Admin\AdminController@index                       | web,auth,admin
-|        | GET|HEAD   | admin/news                     | news.table            | App\Http\Controllers\Admin\News\NewsController@index                   | web,auth,admin
-|        | POST       | admin/news                     | news.save             | App\Http\Controllers\Admin\News\NewsController@store                   | web,auth,admin
-|        | GET|HEAD   | admin/news/create              | news.create           | App\Http\Controllers\Admin\News\NewsController@create                  | web,auth,admin
-|        | GET|HEAD   | admin/news/{news}              | news.change           | App\Http\Controllers\Admin\News\NewsController@show                    | web,auth,admin
-
-```
-Или есть еще рабочий вариант просто вынести в отдельный роут, с использованием "prefix"
-```
-Route::get('{slug}', 'NewsController@show')
-            ->name('news.change')
-```
-Всё будет работать (поверьте). Я понимаю, что можно забить и писать префиксы в ручную, но это не очень удобно и тем боле я буду иметь не разрешенную проблему.
-
-Заранее спасибо.
++--------+----------------------------------------+----------------------------------+----------------------------+------------------------------------------------------------------------+------------------------------------------------------+
+| Domain | Method                                 | URI                              | Name                       | Action                                                                 | Middleware                                           |
++--------+----------------------------------------+----------------------------------+----------------------------+------------------------------------------------------------------------+------------------------------------------------------+
+|        | GET|HEAD                               | /                                | home                       | App\Http\Controllers\IndexController@index                             | web                                                  |
+|        | GET|HEAD                               | _debugbar/assets/javascript      | debugbar.assets.js         | Barryvdh\Debugbar\Controllers\AssetController@js                       | Barryvdh\Debugbar\Middleware\DebugbarEnabled,Closure |
+|        | GET|HEAD                               | _debugbar/assets/stylesheets     | debugbar.assets.css        | Barryvdh\Debugbar\Controllers\AssetController@css                      | Barryvdh\Debugbar\Middleware\DebugbarEnabled,Closure |
+|        | DELETE                                 | _debugbar/cache/{key}/{tags?}    | debugbar.cache.delete      | Barryvdh\Debugbar\Controllers\CacheController@delete                   | Barryvdh\Debugbar\Middleware\DebugbarEnabled,Closure |
+|        | GET|HEAD                               | _debugbar/clockwork/{id}         | debugbar.clockwork         | Barryvdh\Debugbar\Controllers\OpenHandlerController@clockwork          | Barryvdh\Debugbar\Middleware\DebugbarEnabled,Closure |
+|        | GET|HEAD                               | _debugbar/open                   | debugbar.openhandler       | Barryvdh\Debugbar\Controllers\OpenHandlerController@handle             | Barryvdh\Debugbar\Middleware\DebugbarEnabled,Closure |
+|        | GET|HEAD                               | _debugbar/telescope/{id}         | debugbar.telescope         | Barryvdh\Debugbar\Controllers\TelescopeController@show                 | Barryvdh\Debugbar\Middleware\DebugbarEnabled,Closure |
+|        | GET|HEAD                               | admin/news                       | news.table                 | App\Http\Controllers\Admin\News\NewsController@index                   | web,auth,admin                                       |
+|        | POST                                   | admin/news                       | news.save                  | App\Http\Controllers\Admin\News\NewsController@store                   | web,auth,admin                                       |
+|        | POST                                   | admin/news/ckeditor/image_upload | news.upload                | App\Http\Controllers\Admin\News\NewsController@upload                  | web,auth,admin                                       |
+|        | GET|HEAD                               | admin/news/create                | news.news.create           | App\Http\Controllers\Admin\News\NewsController@create                  | web,auth,admin                                       |
+|        | GET|HEAD                               | admin/news/multiple-destroy      | news.news.multiple.destroy | App\Http\Controllers\Admin\News\NewsController@multipleDestroy         | web,auth,admin                                       |
+|        | GET|HEAD                               | admin/news/{news}/edit           | news.change                | App\Http\Controllers\Admin\News\NewsController@edit                    | web,auth,admin                                       |
+|        | GET|HEAD                               | api/user                         |                            | Closure                                                                | api,auth:api                                         |
+|        | GET|HEAD                               | elfinder                         | elfinder.index             | Barryvdh\Elfinder\ElfinderController@showIndex                         | web,auth                                             |
+|        | GET|HEAD                               | elfinder/ckeditor                | elfinder.ckeditor          | Barryvdh\Elfinder\ElfinderController@showCKeditor4                     | web,auth                                             |
+|        | GET|HEAD|POST|PUT|PATCH|DELETE|OPTIONS | elfinder/connector               | elfinder.connector         | Barryvdh\Elfinder\ElfinderController@showConnector                     | web,auth                                             |
+|        | GET|HEAD                               | elfinder/filepicker/{input_id}   | elfinder.filepicker        | Barryvdh\Elfinder\ElfinderController@showFilePicker                    | web,auth                                             |
+|        | GET|HEAD                               | elfinder/popup/{input_id}        | elfinder.popup             | Barryvdh\Elfinder\ElfinderController@showPopup                         | web,auth                                             |
+|        | GET|HEAD                               | elfinder/tinymce                 | elfinder.tinymce           | Barryvdh\Elfinder\ElfinderController@showTinyMCE                       | web,auth                                             |
+|        | GET|HEAD                               | elfinder/tinymce4                | elfinder.tinymce4          | Barryvdh\Elfinder\ElfinderController@showTinyMCE4                      | web,auth                                             |
+|        | GET|HEAD                               | elfinder/tinymce5                | elfinder.tinymce5          | Barryvdh\Elfinder\ElfinderController@showTinyMCE5                      | web,auth                                             |
+|        | POST                                   | login                            |                            | App\Http\Controllers\Auth\LoginController@login                        | web,guest                                            |
+|        | GET|HEAD                               | login                            | login                      | App\Http\Controllers\Auth\LoginController@showLoginForm                | web,guest                                            |
+|        | POST                                   | logout                           | logout                     | App\Http\Controllers\Auth\LoginController@logout                       | web                                                  |
+|        | GET|HEAD                               | password/confirm                 | password.confirm           | App\Http\Controllers\Auth\ConfirmPasswordController@showConfirmForm    | web,auth                                             |
+|        | POST                                   | password/confirm                 |                            | App\Http\Controllers\Auth\ConfirmPasswordController@confirm            | web,auth                                             |
+|        | POST                                   | password/email                   | password.email             | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail  | web                                                  |
+|        | POST                                   | password/reset                   | password.update            | App\Http\Controllers\Auth\ResetPasswordController@reset                | web                                                  |
+|        | GET|HEAD                               | password/reset                   | password.request           | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm | web                                                  |
+|        | GET|HEAD                               | password/reset/{token}           | password.reset             | App\Http\Controllers\Auth\ResetPasswordController@showResetForm        | web                                                  |
+|        | GET|HEAD                               | register                         | register                   | App\Http\Controllers\Auth\RegisterController@showRegistrationForm      | web,guest                                            |
+|        | POST                                   | register                         |                            | App\Http\Controllers\Auth\RegisterController@register                  | web,guest                                            |
++--------+----------------------------------------+----------------------------------+----------------------------+------------------------------------------------------------------------+------------------------------------------------------+

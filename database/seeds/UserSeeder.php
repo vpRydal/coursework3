@@ -28,14 +28,18 @@ class UserSeeder extends Seeder
             'login' => 'Rydal',
             'password' => Hash::make('funt1974'),
             'email' => 'i.am.alex2k@mail.ru',
-            'role_id' => $rolesId['admin']
+            'role_id' => $rolesId['admin'],
+            'remember_token' => Str::random(10),
+
         ];
         // default user
         $users[] = [
             'login' => 'Tester',
             'password' => Hash::make('12345678'),
             'email' => 'stefanov-2000@mail.ru',
-            'role_id' => $rolesId['default_user']
+            'role_id' => $rolesId['default_user'],
+            'remember_token' => Str::random(10),
+
         ];
 
         foreach ($users as $user)

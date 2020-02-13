@@ -1,5 +1,6 @@
 @extends('news.create')
 @section('form-text')
+    @method('PATCH')
     <div class="form-row">
         <div class="form-group col-md-12">
             <label for="editor1">Основное содержание</label>
@@ -10,9 +11,11 @@
     <script src="{{ asset('/js/ckeditor/ckeditor.js') }}"
             type="text/javascript" charset="utf-8" ></script>
     <script>
-        let slug = $('#news-slug').val();
         CKEDITOR.replace( 'editor1', {
-            filebrowserUploadUrl: "{{ route('upload', ['_token' => csrf_token()]) }}" + slug,
+            filebrowserUploadUrl: "{{ route('news.upload', [
+                '_token' => csrf_token(),
+                'news' => $vars['news']->slug
+                ]) }}" ,
             filebrowserUploadMethod: 'form'
         });
     </script>
@@ -37,21 +40,26 @@
 <div class="form-row">
     <div class="col-md-4">
         <label for="news-date-create">Дата создания статьи</label>
-        <input class="form-control" type="text" placeholder="" readonly id="news-date-create" value="{{ $vars['date-create'] ?? '' }}">
+        <input class="form-control" type="text" placeholder="" readonly id="news-date-create" value="{{ $vars['news']->created_at}}">
 
     </div>
     <div class="form-group col-md-4">
         <label for="news-date-change">Дата последнего изменения статьи</label>
-        <input class="form-control" type="text" placeholder="" readonly id="news-date-change" value="{{ $vars['date-change'] ?? '' }}">
+        <input class="form-control" type="text" placeholder="" readonly id="news-date-change" value="{{ $vars['news']->updated_at }}">
 
     </div>
     <div class="form-group col-md-4">
         <label for="news-date-publishing">Дата публикации</label>
-        <input class="form-control" type="text" placeholder="" readonly id="news-date-publishing" value="{{ $vars['date-publishing'] ?? 'Не опубликована' }}">
+        <input class="form-control" type="text" placeholder="" readonly id="news-date-publishing" value="{{ $vars['news']->is_published == null ? 'Не опубликована': $vars['news']->is_published }}">
     </div>
 </div>
 @endsection
 
 @section('form-route')
-    {{ route('news.update') }}
+    {{ route('news.update', $vars["news"]->slug) }}
+@endsection
+
+
+@section('form-method')
+    @method('PATCH')
 @endsection

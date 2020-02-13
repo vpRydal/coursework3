@@ -10,7 +10,7 @@ class NewsObserver
     public function creating (News $news) {
     }
     public function deleting (News $news) {
-        dd($news);
+
     }
     /**
      * Handle the news "created" event.
@@ -43,7 +43,8 @@ class NewsObserver
      */
     public function deleted(News $news)
     {
-        //
+        $disk = Storage::disk('public');
+        $disk->deleteDirectory('files\images\news\\' . $news->slug);
     }
 
     /**
