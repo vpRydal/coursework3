@@ -12,6 +12,7 @@ class IndexController extends SiteController
     public function __construct()
     {
         parent::__construct(new NewsRepository);
+        $this->vars['allNews'] = $this->newsRep->getNewsForSlider();
 
         $this->template = 'index';
     }

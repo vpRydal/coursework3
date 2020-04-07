@@ -6,26 +6,11 @@
 
         <div class="collapse navbar-collapse d-flex justify-content-center" id="navbarSupportedContent">
             <a class="navbar-brand" href="/">Allete</a>
+
             <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Главная</a>
+                    <a href="{{ route('catalog') }}" class="nav-link">Каталог</a>
                 </li>
-                <li>
-                    <ul class="topmenu">
-                        <li>
-                            <div class="" id="dropdownMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <a href="#" class="my-auto nav-link submenu-link-bot">Каталог</a>
-                            </div>
-                            <ul class="submenu">
-                                <li class="submenu-border-top"><a href="">Мой кабинет</a></li>
-                                <li><a href="">Моя корзина</a></li>
-                                <li><a href="">Мои заказы</a></li>
-                                <li><div class="divider"></div></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="#">О нас</a>
                 </li>

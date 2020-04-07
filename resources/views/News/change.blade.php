@@ -1,26 +1,35 @@
 @extends('news.create')
+
 @section('form-text')
-    @method('PATCH')
     <div class="form-row">
         <div class="form-group col-md-12">
             <label for="editor1">Основное содержание</label>
-            <textarea class="form-control" id="editor1" name="text">{{ $vars['html_text'] ?? '' }}</textarea>
+            <textarea class="form-control" id="editor1" name="text">{{ $vars['news'] ->html_text ?? '' }}</textarea>
         </div>
     </div>
+
+@endsection
+
+@section('scripts-bot')
+    @parent
     <script src="{{ asset('/js/bootstrap-filestyle.js') }}"></script>
-    <script src="{{ asset('/js/ckeditor/ckeditor.js') }}"
-            type="text/javascript" charset="utf-8" ></script>
+    <script src="{{ asset('/js/ckeditor/ckeditor.js') }}" type="text/javascript" charset="utf-8" ></script>
     <script>
-        CKEDITOR.replace( 'editor1', {
-            filebrowserUploadUrl: "{{ route('news.upload', [
+        setTimeout(function(){
+            CKEDITOR.replace( 'editor1', {
+                filebrowserUploadUrl: "{{ route('news.upload', [
                 '_token' => csrf_token(),
                 'news' => $vars['news']->slug
                 ]) }}" ,
-            filebrowserUploadMethod: 'form'
-        });
+                filebrowserUploadMethod: 'form'
+            });
+        },100);
+
     </script>
     <script src="{{ asset('/js/News/LoadImg.js') }}"></script>
-@endsection
+@stop
+
+
 
 @section('form-load-img')
     <div class="form-group col-md-9">
@@ -31,7 +40,7 @@
 
 @section('form-is-publish')
     <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="news-is-publish" name="is-publish">
+        <input class="form-check-input" type="checkbox" id="news-is-publish" name="is-publish" value= '1' {{ $vars['news']->is_published ? 'checked="checked"': '' }}>
         <label class="form-check-label" for="news-is-publish">Побликация</label>
     </div>
 @endsection
@@ -50,7 +59,7 @@
     </div>
     <div class="form-group col-md-4">
         <label for="news-date-publishing">Дата публикации</label>
-        <input class="form-control" type="text" placeholder="" readonly id="news-date-publishing" value="{{ $vars['news']->is_published == null ? 'Не опубликована': $vars['news']->is_published }}">
+        <input class="form-control" type="text" placeholder="" readonly id="news-date-publishing" value="{{ $vars['news']->published_at ?? 'Не была опубликована'}}">
     </div>
 </div>
 @endsection

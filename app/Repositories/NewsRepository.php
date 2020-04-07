@@ -1,16 +1,10 @@
 <?php
 
-
 namespace App\Repositories;
 
-
 use App\Models\News;
-use App\Models\User;
-use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
-use Illuminate\Pagination\LengthAwarePaginator;
-use Illuminate\Pagination\Paginator;
 
 
 class NewsRepository extends Repository
@@ -20,11 +14,30 @@ class NewsRepository extends Repository
         return new News();
     }
 
-    public function getNewsForTable () {
-        $news = $this->startConditions()->select(['title', 'created_at', 'is_published', 'id'])->orderByDesc('created_at')->paginate(5);
+    public function getNewsForTableWithPaginate () {
+        $news = $this->startConditions()
+            ->select([
+                'title',
+                'created_at',
+                'is_published',
+                'id',
+                'slug',
+
+            ])
+            ->orderByDesc('created_at')
+            ->paginate(5);
 
         return $news;
 
+    }
+
+    public function getNewsForSlider () {
+        return News::select([
+            'description',
+            'img_preview',
+            'slug',
+            'is_published'
+        ])->get();
     }
 
     public function multipleDestroy (Request $request) {

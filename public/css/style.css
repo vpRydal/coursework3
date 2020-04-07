@@ -236,3 +236,7 @@ nav li:hover > .submenu {
     border-top-right-radius: 5px;
 }
 
+.slick-prev:before, .slick-next:before {
+    color: rgba(255, 206, 209, 0.98) !important;
+}
+

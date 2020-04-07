@@ -7,6 +7,7 @@ use App\Http\Requests\NewsRequest;
 use App\Models\News;
 use App\Repositories\NewsRepository;
 use Auth;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -14,11 +15,8 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
-
 use Image;
 use Str;
-use Symfony\Component\Console\Input\Input;
-
 
 class NewsController extends AdminController
 {
@@ -35,7 +33,7 @@ class NewsController extends AdminController
     public function index()
     {
         $this->template .= '.index';
-        $this->vars['newsPaginator'] = $this->newsRep->getNewsForTable();
+        $this->vars['newsPaginator'] = $this->newsRep->getNewsForTableWithPaginate();
         return $this->renderOutput();
     }
 
@@ -64,16 +62,8 @@ class NewsController extends AdminController
         if (empty($data['slug']))
             $data['slug'] = Str::slug($data['title']);
         $data['author_id'] = Auth::user()->id;
-
         $news = News::create($data);
         return redirect()->route('news.change', $news);
-
-/*      dd($request->input('text'));
-        $img = $request->file('img');
-        $disk = Storage::disk('public');
-        $img = Image::make($img)->resize(300, 300);
-
-        $img->save('storage/files/images/news/test.jpg');*/
     }
 
     /**
@@ -100,10 +90,6 @@ class NewsController extends AdminController
             'slug' => 'readonly',
         ];
         $this->vars['news'] = $news;
-        if ($news->is_published)
-            $this->vars['date-publishing'] = $news->is_published;
-
-
 
         return $this->renderOutput();
     }
@@ -111,13 +97,46 @@ class NewsController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param Request $request
-     * @param  News  $news
-     * @return Response
+     * @param NewsRequest $request
+     * @param News $news
+     * @return RedirectResponse
      */
-    public function update(Request $request)
+    public function update(NewsRequest $request, News $news)
     {
+        $data = $request->all();
+        $news->fill([
+            'html_text' => $data['text'],
+            'description' => $data['description'],
+            'title' => $data['title'],
+        ]);
+        $isPublish = $request->input('is-publish');
 
+        if ($isPublish && !$news->published_at) {
+
+            $news->published_at = Carbon::now()->toDateTimeString();
+        }
+
+        if ($isPublish != null) {
+            $news->is_published = 1;
+        } else {
+            $news->is_published = 0;
+        }
+        $img = $request->file('img');
+        if (isset($img)) {
+            $imgExtension = $img->extension();
+            $img = Image::make($img);
+            $disk = Storage::disk('public');
+            $imgPath = $disk->path('files\images\news\\' . $news->slug . '\\');
+            $imgName = Str::random(10);;
+            $imgFullPath = $imgPath . $imgName . '.' . $imgExtension;
+
+            $img->resize(300, 300);
+            $img->save($imgFullPath);
+            $news->img_preview = asset('storage\files\images\news\\'  . $news->slug . '\\' . $imgName . '.' . $imgExtension);
+        }
+
+        $news->update();
+        return redirect()->back();
     }
 
     /**

@@ -6,19 +6,19 @@
                 {{session('status') ? 'Успешно удалено': 'Удаление не удалось'}}
             </div>
         @endif
-        <form method="GET" action="{{route('news.multiple.destroy')}}">
+        <form method="GET" action="{{route('news.multiple.destroy')}}" id="news-form-table">
             @csrf
             <table class="table" id="news-table">
                 <tr>
                     <th scope="col"> <a>Заголовок</a> </th>
                     <th scope="col"> <a>Дата создания</a> </th>
                     <th scope="col"> <a>Публикация</a> </th>
-                    <th scope="col"> <button >Выделить все</button> </th>
+                    <th scope="col"> <button class="btn btn-dark ">Выделить все</button> </th>
                 </tr>
                 @foreach($vars['newsPaginator'] as $newsItem)
                     <tr class="{{$newsItem->is_published ?'' :'alert alert-light'}}">
                         <td scope="row">
-                            <a href="{{asset('')}}"> {{$newsItem->title}} </a>
+                            <a href="{{ route('news.change', $newsItem->slug) }}"> {{$newsItem->title}} </a>
                         </td>
                         <td scope="row">
                             <a> {{$newsItem->created_at ?? 'none'}} </a>
@@ -43,9 +43,12 @@
                     </div>
                 </div>
             @endif
-            <button type="submit" >Удалить</button>
+
         </form>
-            <a href="{{ route('news.create') }}">Добавить</a>
+            <div class="container float-left">
+                <button form="news-form-table" class="btn btn-dark" type="submit" >Удалить</button>
+                <a class="btn btn-dark" href="{{ route('news.create') }}">Добавить</a>
+            </div>
     </div>
 
 @endsection

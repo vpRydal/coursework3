@@ -17,10 +17,11 @@ namespace App\Models{
  * @property int $id
  * @property string $title
  * @property string $slug
- * @property string|null $img_path
+ * @property string|null $img_preview
  * @property string|null $description
  * @property string|null $html_text
  * @property int $is_published
+ * @property string|null $published_at
  * @property int $author_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -33,8 +34,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereHtmlText($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereImgPath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereImgPreview($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereIsPublished($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News wherePublishedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\News whereUpdatedAt($value)

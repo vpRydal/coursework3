@@ -18,11 +18,12 @@ class CreateNewsTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
 
-            $table->string('img_path')->nullable();
+            $table->string('img_preview')->nullable();
             $table->text('description')->nullable();
             $table->text('html_text')->nullable();
 
-            $table->boolean('is_published')->default(false)->unsigned();
+            $table->boolean('is_published')->default(false);
+            $table->timestamp('published_at')->nullable();
             $table->bigInteger('author_id')->index()->unsigned();
             $table->timestamps();
         });

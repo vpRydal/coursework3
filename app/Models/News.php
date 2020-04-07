@@ -6,15 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
-    protected $fillable = [
-        'img_path',
-        'title',
-        'is_published',
-        'author_id',
-        'html_text',
-        'description',
-        'slug'
-    ];
+    protected $guarded = [];
 
     public function getRouteKeyName()
     {

@@ -42,6 +42,10 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
     });
 });
 
+Route::group(['namespace' => 'User', 'prefix' => 'user', 'as' => 'user.', 'middleware' => 'auth'], function(){
+
+});
+
 // /
 Route::resource('/', 'IndexController', [
     'only' => [
@@ -51,4 +55,36 @@ Route::resource('/', 'IndexController', [
         'index' => 'home'
     ]
 ]);
+
+Route::resource('news', 'NewsController')
+    ->only([
+        'index',
+        'show',
+    ])
+    ->names([
+        'index' => 'news.all',
+        'show' => 'news.show',
+    ]
+);
+
+Route::resource('catalog', 'CatalogController')
+    ->only([
+        'index',
+    ])
+    ->names([
+            'index' => 'catalog',
+        ]
+    );
+/*
+Route::group(['namespace' => 'Guest', 'prefix' => 'guest'], function(){
+    Route::resource('news', 'NewsController')
+        ->only([
+            'index',
+            'show',
+        ])
+        ->names([
+            'index' => 'table',
+            'show' => 'show',
+        ]);
+});*/
 

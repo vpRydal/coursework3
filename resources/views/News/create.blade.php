@@ -1,4 +1,5 @@
 @extends('layouts.layout')
+
 @section('content')
     <form method="POST" class="container form-group" action="@section('form-route'){{ route('news.save') }} @show" enctype="multipart/form-data">
         @csrf
@@ -35,5 +36,4 @@
         </div>
         <div id="news-img-area"></div>
     </form>
-
-@endsection
+@stop
