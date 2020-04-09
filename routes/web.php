@@ -11,6 +11,9 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+
 Auth::routes();
 
 // Admin/
@@ -62,19 +65,21 @@ Route::resource('news', 'NewsController')
         'show',
     ])
     ->names([
-        'index' => 'news.all',
-        'show' => 'news.show',
-    ]
-);
-
-Route::resource('catalog', 'CatalogController')
-    ->only([
-        'index',
-    ])
-    ->names([
-            'index' => 'catalog',
+            'index' => 'news.all',
+            'show' => 'news.show',
         ]
     );
+Route::group(['namespace' => 'catalog', 'prefix' => 'catalog'], function () {
+    Route::resource('', 'CatalogController')
+        ->only([
+            'index',
+        ])
+        ->names([
+                'index' => 'catalog',
+            ]
+        );
+    Route::get('product/{product}', 'ProductController@index');
+});
 /*
 Route::group(['namespace' => 'Guest', 'prefix' => 'guest'], function(){
     Route::resource('news', 'NewsController')
@@ -87,4 +92,3 @@ Route::group(['namespace' => 'Guest', 'prefix' => 'guest'], function(){
             'show' => 'show',
         ]);
 });*/
-

@@ -24,6 +24,6 @@ class SiteController extends Controller
         } catch (\Throwable $e) {
             $catalog = null;
         }
-        return view($this->template)->with('vars', $this->vars);
+        return view($this->template)->with($this->vars);
     }
 }

@@ -23,7 +23,7 @@ class NewsController extends AdminController
     public function __construct()
     {
         parent::__construct(new NewsRepository);
-        $this->template = 'News';
+        $this->template .= 'News.';
     }
     /**
      * Display a listing of the resource.
@@ -32,7 +32,7 @@ class NewsController extends AdminController
      */
     public function index()
     {
-        $this->template .= '.index';
+        $this->template .= 'index';
         $this->vars['newsPaginator'] = $this->newsRep->getNewsForTableWithPaginate();
         return $this->renderOutput();
     }
@@ -45,7 +45,7 @@ class NewsController extends AdminController
 
     public function create()
     {
-        $this->template .= '.create';
+        $this->template .= 'create';
 
         return $this->renderOutput();
     }
@@ -85,7 +85,7 @@ class NewsController extends AdminController
      */
     public function edit(News $news)
     {
-        $this->template .= '.change';
+        $this->template .= 'change';
         $this->vars['readonly'] = [
             'slug' => 'readonly',
         ];

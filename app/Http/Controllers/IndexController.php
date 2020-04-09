@@ -6,6 +6,7 @@ use App\Repositories\NewsRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use App\Models\ProductCategory;
 
 class IndexController extends SiteController
 {

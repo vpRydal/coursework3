@@ -13,6 +13,7 @@ class AdminController extends SiteController
         parent::__construct($newsRep);
         $this->middleware('auth');
         $this->middleware('admin');
+        $this->template .= 'Admin.';
     }
 
 }

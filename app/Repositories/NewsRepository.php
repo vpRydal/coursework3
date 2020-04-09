@@ -25,7 +25,7 @@ class NewsRepository extends Repository
 
             ])
             ->orderByDesc('created_at')
-            ->paginate(5);
+            ->paginate(20);
 
         return $news;
 

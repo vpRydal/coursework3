@@ -13,16 +13,12 @@ class ProductCategory extends Migration
      */
     public function up()
     {
-        Schema::create('product_category', function (Blueprint $table) {
-            $table->bigIncrements('id');
+        Schema::create('product_categories', function (Blueprint $table) {
+            $table->id();
             $table->string('name');
-            $table->bigIncrements('parent_product_category_id')->nullable();
+            $table->bigInteger('parent_category_id')->nullable()->index();
 
             $table->timestamps();
-        });
-
-        Schema::table('news', function (Blueprint $table) {
-            $table->foreign('parent_product_category_id')->references('id')->on('product_category');
         });
     }
 
@@ -33,6 +29,6 @@ class ProductCategory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_category');
+        Schema::dropIfExists('product_categories');
     }
 }

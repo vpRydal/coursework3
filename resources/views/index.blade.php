@@ -55,9 +55,9 @@
         <h1 class="my-5">
             Новости и акции
         </h1>
-        <div id="index-news-carousel" class="slick-track container">
+        <div id="index-news-carousel" class="">
 
-            @foreach ($vars['allNews'] as $news)
+            @foreach ($allNews as $news)
                 @if($news->is_published)
                     <div class="card px-1" style="border: none;!important">
                         <img class="img-fluid card-img-top" src="{{ $news->img_preview }}" alt="">
@@ -75,7 +75,7 @@
     </section>
 @endsection
 
-@section('scripts-bot')
+@section('scripts-top')
     @parent
     <script src="{{ asset('js/index/carusel.js') }}"></script>
 @stop

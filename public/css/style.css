@@ -1,13 +1,24 @@
-.container {
-    font-family: 'Roboto', "Segoe UI Semibold";
+/* global */
+.btn-allete {
+    background-color: rgba(236, 123, 141, 0.98) !important;
+    color: white !important;
+    border-radius: 25px;
+
 }
+.color-allete {
+    color: rgba(236, 123, 141, 0.98) !important;
+}
+.bg-allete {
+    background-color: rgba(236, 123, 141, 0.98) !important;
+}
+h1,h2,h3,h4, body, a, p {
+    font-family: 'Prompt', sans-serif;
+}
+
+
 .navbar-brand {
     font-size: 30px;
-    font-family: 'Roboto', "Segoe UI Semibold";
     color: lightpink !important;
-}
-nav {
-    font-family: 'Roboto', "Segoe UI Semibold";
 }
 .nav-item {
     margin: 0 10px;
@@ -240,3 +251,23 @@ nav li:hover > .submenu {
     color: rgba(255, 206, 209, 0.98) !important;
 }
 
+.btn-allete {
+    background-color: rgba(236, 123, 141, 0.98) !important;
+    color: white !important;
+    border-radius: 25px;
+
+}
+
+/* page product */
+
+#product input[type='submit'] {
+    border-radius: 50px;
+    font-size: 14px;
+    width: 250px;
+    height: 65px;
+}
+#product input[type='number'] {
+    border: none !important;
+    width: 70px;
+
+}
