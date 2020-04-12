@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Repositories\NewsRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use App\Models\ProductCategory;
 
@@ -26,6 +27,11 @@ class IndexController extends SiteController
     public function index()
     {
         return $this->renderOutput();
+    }
+
+    public function login()
+    {
+        return view('login');
     }
 
     /**

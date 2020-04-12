@@ -16,7 +16,11 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
-// Admin/
+Route::get('/{any}', function () {
+    return view('index');
+})->where(['any' => '.*']);
+
+/*// Admin/
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function(){
     // Admin/News/
     Route::group(['namespace' => 'News', 'as' => 'news.'], function () {
@@ -49,16 +53,18 @@ Route::group(['namespace' => 'User', 'prefix' => 'user', 'as' => 'user.', 'middl
 
 });
 
-// /
-Route::resource('/', 'IndexController', [
+// /*/
+/*Route::resource('/', 'IndexController', [
     'only' => [
-        'index'
+        'index',
     ],
     'names' => [
         'index' => 'home'
     ]
-]);
+]);*/
 
+Route::get('/login', 'IndexController@login')->name('login');
+/*
 Route::resource('news', 'NewsController')
     ->only([
         'index',
@@ -79,7 +85,7 @@ Route::group(['namespace' => 'catalog', 'prefix' => 'catalog'], function () {
             ]
         );
     Route::get('product/{product}', 'ProductController@index');
-});
+});*/
 /*
 Route::group(['namespace' => 'Guest', 'prefix' => 'guest'], function(){
     Route::resource('news', 'NewsController')

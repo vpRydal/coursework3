@@ -32,7 +32,7 @@
 			'error'                : 'Error',
 			'errUnknown'           : 'Unknown error.',
 			'errUnknownCmd'        : 'Unknown command.',
-			'errJqui'              : 'Invalid jQuery UI configuration. Selectable, draggable and droppable components must be included.',
+			'errJqui'              : 'Invalid jQuery UI configuration. Selectable, draggable and droppable Components must be included.',
 			'errNode'              : 'elFinder requires DOM Element to be created.',
 			'errURL'               : 'Invalid elFinder configuration! URL option is not set.',
 			'errAccess'            : 'Access denied.',

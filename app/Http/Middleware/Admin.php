@@ -3,23 +3,36 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Gate;
-use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class Admin
 {
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
+     * @param  Request  $request
+     * @param Closure $next
      * @return mixed
      */
     public function handle($request, Closure $next)
     {
-        if (Gate::allows("isAdmin"))
-        return $next($request);
-        else
-            return redirect('/');
+        $admin = Gate::allows("isAdmin");
+
+        if ($request->ajax()) {
+            if (!$admin) {
+                return response()->json(['message' => 'access error'], 403);
+            } else {
+                return $next($request);
+            }
+        } else {
+            if ($admin) {
+                return $next($request);
+
+            } else {
+                return redirect('/');
+
+            }
+        }
     }
 }

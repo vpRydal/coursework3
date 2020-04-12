@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -12,11 +13,18 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
     public $successStatus = 200;
+
     /**
      * login api
      *
+     * @param Request $request
      * @return JsonResponse
      */
+
+    public function test(Request $request)
+    {
+        return response()->json(['success' => true, 'data' => ['your_message' => $request->message, 'user' => $request->user()]]);
+    }
     public function login(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
             $user = Auth::user();

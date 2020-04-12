@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import router from './router'
-import Products from './components/Products.vue'
+import Products from './Components/Products.vue'
 
 export default new Vue({
     el: '#Catalog',

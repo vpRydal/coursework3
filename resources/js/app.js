@@ -1,7 +1,5 @@
-
+import Vue from 'vue'
 
 require('./bootstrap');
 
-
-const catalog = require ("./catalogApp");
-const newIndex = require("./Admin/newsIndex");
+Vue.components('Header', require('./Components/Header'));

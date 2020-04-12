@@ -19,12 +19,12 @@
 		dateFormat : 'd.m.Y H:i',
 		fancyDateFormat : '$1 H:i',
 		messages   : {
-			
+
 			/********************************** errors **********************************/
 			'error'                : 'Πρόβλημα',
 			'errUnknown'           : 'Άγνωστο πρόβλημα.',
 			'errUnknownCmd'        : 'Άγνωστη εντολή.',
-			'errJqui'              : 'Μη έγκυρη ρύθμιση του jQuery UI. Τα components "selectable", "draggable" και "droppable" πρέπει να περιληφούν.',
+			'errJqui'              : 'Μη έγκυρη ρύθμιση του jQuery UI. Τα Components "selectable", "draggable" και "droppable" πρέπει να περιληφούν.',
 			'errNode'              : 'το elFinder χρειάζεται να έχει δημιουργηθεί το DOM Element.',
 			'errURL'               : 'Μη έγκυρες ρυθμίσεις για το elFinder! η επιλογή URL δεν έχει οριστεί.',
 			'errAccess'            : 'Απαγορεύεται η πρόσβαση.',
@@ -99,7 +99,7 @@
 			'errFtpMkdir'          : 'Unable to create remote directory on FTP: "$1"',
 			'errArchiveExec'       : 'Error while archiving files: "$1"',
 			'errExtractExec'       : 'Error while extracting files: "$1"',
-			
+
 			/******************************* commands names ********************************/
 			'cmdarchive'   : 'Δημιουργία archive αρχείου',
 			'cmdback'      : 'Πίσω',
@@ -129,8 +129,8 @@
 			'cmdresize'    : 'Αλλαγή μεγέθους εικόνας',
 			'cmdsort'      : 'Ταξινόμηση',
 			'cmdnetmount'  : 'Mount network volume',
-			
-			/*********************************** buttons ***********************************/ 
+
+			/*********************************** buttons ***********************************/
 			'btnClose'  : 'Κλείσιμο',
 			'btnSave'   : 'Αποθήκευση',
 			'btnRm'     : 'Αφαίρεση',
@@ -139,7 +139,7 @@
 			'btnNo'     : 'Όχι',
 			'btnYes'    : 'Ναι',
 			'btnMount'  : 'Mount',
-			
+
 			/******************************** notifications ********************************/
 			'ntfopen'     : 'Άνοιγμα φακέλου',
 			'ntffile'     : 'Άνοιγμα αρχείου',
@@ -162,7 +162,7 @@
 			'ntfloadimg'  : 'Φόρτωση εικόνας',
 			'ntfnetmount' : 'Φόρτωση δικτυακού δίσκου', // added 18.04.2012
 			'ntfdim'      : 'Acquiring image dimension',
-			
+
 			/************************************ dates **********************************/
 			'dateUnknown' : 'άγνωστο',
 			'Today'       : 'Σήμερα',
@@ -191,28 +191,28 @@
 			'October'     : 'Οκτώβριος',
 			'November'    : 'Νοέμβριος',
 			'December'    : 'Δεκέμβριος',
-			'Sunday'      : 'Κυριακή', 
-			'Monday'      : 'Δευτέρα', 
-			'Tuesday'     : 'Τρίτη', 
-			'Wednesday'   : 'Τετάρτη', 
-			'Thursday'    : 'Πέμπτη', 
-			'Friday'      : 'Παρασκευή', 
+			'Sunday'      : 'Κυριακή',
+			'Monday'      : 'Δευτέρα',
+			'Tuesday'     : 'Τρίτη',
+			'Wednesday'   : 'Τετάρτη',
+			'Thursday'    : 'Πέμπτη',
+			'Friday'      : 'Παρασκευή',
 			'Saturday'    : 'Σάββατο',
-			'Sun'         : 'Κυρ', 
-			'Mon'         : 'Δευ', 
-			'Tue'         : 'Τρ', 
-			'Wed'         : 'Τετ', 
-			'Thu'         : 'Πεμ', 
-			'Fri'         : 'Παρ', 
+			'Sun'         : 'Κυρ',
+			'Mon'         : 'Δευ',
+			'Tue'         : 'Τρ',
+			'Wed'         : 'Τετ',
+			'Thu'         : 'Πεμ',
+			'Fri'         : 'Παρ',
 			'Sat'         : 'Σαβ',
-			
+
 			/******************************** sort variants ********************************/
-			'sortname'          : 'κατά όνομα', 
-			'sortkind'          : 'κατά είδος', 
+			'sortname'          : 'κατά όνομα',
+			'sortkind'          : 'κατά είδος',
 			'sortsize'          : 'κατά μέγεθος',
 			'sortdate'          : 'κατά ημερομηνία',
 			'sortFoldersFirst'  : 'Πρώτα οι φάκελοι', // added 22.06.2012
-			
+
 			/********************************** messages **********************************/
 			'confirmReq'      : 'Απαιτείται επιβεβαίωση',
 			'confirmRm'       : 'Είστε σίγουροι πως θέλετε να διαγράψετε τα αρχεία?<br/>Οι αλλαγές θα είναι μόνιμες!',
@@ -235,7 +235,7 @@
 			'viewlist'        : 'Προβολή λίστας',
 			'viewicons'       : 'Προβολή εικονιδίων',
 			'places'          : 'Τοποθεσίες',
-			'calc'            : 'Υπολογισμός', 
+			'calc'            : 'Υπολογισμός',
 			'path'            : 'Διαδρομή',
 			'aliasfor'        : 'Ψευδώνυμο για',
 			'locked'          : 'Κλειδωμένο',
@@ -246,7 +246,7 @@
 			'yes'             : 'ναι',
 			'no'              : 'όχι',
 			'link'            : 'Σύνδεσμος',
-			'searcresult'     : 'Αποτελέσματα αναζήτησης',  
+			'searcresult'     : 'Αποτελέσματα αναζήτησης',
 			'selected'        : 'επιλεγμένα αντικείμενα',
 			'about'           : 'Σχετικά',
 			'shortcuts'       : 'Συντομεύσεις',
@@ -290,7 +290,7 @@
 			'port'                : 'Port', // added 18.04.2012
 			'user'                : 'Χρήστης', // added 18.04.2012
 			'pass'                : 'Κωδικός', // added 18.04.2012
-			
+
 			/********************************** mimetypes **********************************/
 			'kindUnknown'     : 'Άγνωστο',
 			'kindFolder'      : 'Φάκελος',

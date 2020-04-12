@@ -18,17 +18,26 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
+Route::post('logout', 'API\Auth\LoginController@logout');
+Route::post('login', 'API\Auth\LoginController@login');
 
-Route::group(['namespace' => 'API'], function() {
+Route::group(['namespace' => 'API'], function () {
     Route::get('products/{category}', 'ProductController@getByCategory');
     Route::get('products', 'ProductController@getPopular');
 
-    Route::post('login', 'UserController@login');
-    Route::post('register', 'UserController@register');
+    Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function () {
 
-    Route::group(['middleware' => 'auth:api'], function() {
-        Route::post('details', 'UserController@details');
+
+        Route::group(['middleware' => 'auth:sanctum'], function () {
+            Route::post('user', 'LoginController@user');
+
+        });
+
     });
+
+    Route::get('index/news', 'IndexController@news');
+    Route::get('news/view/{news}', 'IndexController@viewNews');
+
 });
 
 
