@@ -10,7 +10,7 @@ class IndexController extends Controller
 {
     public function news()
     {
-        return response()->json(News::select(['img_preview', 'description', 'slug'])->where('is_published', true)->get());
+        return response()->json(['news' =>  News::select(['img_preview', 'description', 'slug'])->where('is_published', true)->get()]);
     }
 
     public function viewNews(News $news)

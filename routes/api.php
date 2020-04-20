@@ -18,26 +18,32 @@ use Illuminate\Support\Facades\Route;
     return $request->user();
 });*/
 
-Route::post('logout', 'API\Auth\LoginController@logout');
-Route::post('login', 'API\Auth\LoginController@login');
 
 Route::group(['namespace' => 'API'], function () {
-    Route::get('products/{category}', 'ProductController@getByCategory');
-    Route::get('products', 'ProductController@getPopular');
+    Route::get('products/popular', 'ProductController@popular');
+    Route::get('product/{product}', 'ProductController@get');
+    Route::get('products', 'ProductController@byField');
+    Route::get('index/news', 'IndexController@news');
+    Route::get('news/view/{news}', 'IndexController@viewNews');
+
+    Route::group(['prefix' => 'user'], function () {
+        Route::get('unique', 'UserController@unique');
+    });
+
+    Route::get('category/{category}/products', 'ProductController@byCategory');
+    Route::get('categories', 'CategoryController@all');
 
     Route::group(['namespace' => 'Auth', 'prefix' => 'auth'], function () {
-
+        Route::post('login', 'LoginController@login');
+        Route::post('register', 'RegisterController@register');
 
         Route::group(['middleware' => 'auth:sanctum'], function () {
-            Route::post('user', 'LoginController@user');
+            Route::post('logout', 'LoginController@logout');
+            Route::get('user', 'LoginController@user');
 
         });
 
     });
-
-    Route::get('index/news', 'IndexController@news');
-    Route::get('news/view/{news}', 'IndexController@viewNews');
-
 });
 
 

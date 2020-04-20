@@ -9,16 +9,28 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function getByCategory(Request $request, ProductCategory $category)
+    public function byCategory(ProductCategory $category)
     {
-        $products = $category->products()->get();
 
-        return response()->json(['success' => true, 'data' => $products], 200);
+        $products = $category->products()->select(['slug', 'title', 'cost', 'short_description', 'img_path'])->get();
+
+        return response()->json(['products' => $products]);
     }
 
-    public function getPopular()
+    public function popular()
     {
         $products = Product::select(['slug', 'title', 'img_path', 'cost', 'short_description'])->get();
-        return response()->json(['success' => true, 'data' => $products], 200);
+        return response()->json(['products' => $products]);
+    }
+    public function get(Product $product)
+    {
+        $images = $product->images()->select(['images'])->first();
+        return response()->json(['product' => $product, 'images' => json_decode($images->images)]);
+    }
+
+    public function byField(Request $request)
+    {
+        $products = Product::select($request->selectFields)->whereIn($request->fieldName, $request->byFields)->get();
+        return response()->json(['products' => $products]);
     }
 }

@@ -27,6 +27,6 @@ $factory->define(Product::class, function (Faker $faker) {
         'category_id' => $subCategories->id,
         'created_at' => $created_at,
         'updated_at' => $created_at,
-        'img_path' => $faker->imageUrl()
+        'img_path' => 'storage/crem.jpg'
     ];
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -21,9 +22,10 @@ class UserController extends Controller
      * @return JsonResponse
      */
 
-    public function test(Request $request)
+    public function unique(Request $request)
     {
-        return response()->json(['success' => true, 'data' => ['your_message' => $request->message, 'user' => $request->user()]]);
+        $result = !User::where($request->field,  $request->value)->exists();
+        return response()->json(['result' => $result]);
     }
     public function login(){
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
@@ -33,7 +35,7 @@ class UserController extends Controller
             return response()->json(['success' => $success], $this-> successStatus);
         }
         else{
-            return response()->json(['error'=>'Unauthorised'], 401);
+            return response()->json(['error' => 'Unauthorised'], 401);
         }
     }
 

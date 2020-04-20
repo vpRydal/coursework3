@@ -7,7 +7,7 @@
     </main>
 @endsection
 
-@section('scripts-top')
+@section('scripts-bot')
     @parent
     <script src="{{ asset('js/index.js') }}" defer></script>
     <script src="{{ asset('js/index/carusel.js') }}"></script>

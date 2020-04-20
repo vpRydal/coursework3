@@ -1,6 +1,8 @@
 <template>
-    <router-view>
-    </router-view>
+    <keep-alive :exclude="['Catalog', 'ViewProduct']">
+        <router-view>
+        </router-view>
+    </keep-alive>
 </template>
 
 <script>

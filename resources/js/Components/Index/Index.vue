@@ -54,7 +54,7 @@
                         <img :src="img_preview" class="img-fluid card-img-top" alt=""
                              style="width: 270px; height: 200px;">
                         <div class="card-body">
-                            <router-link :to="'news/' + slug">
+                            <router-link :to="{name: 'viewNews', params: {slug: slug}}">
                                 <a class="card-title stretched-link text-dark text-decoration-none">{{ description
                                     }}</a>
                             </router-link>
@@ -85,9 +85,42 @@
         },
         watch: {},
         created() {
-            this.news =  axios
+            axios
                 .get('/api/index/news')
-                .then(({data}) => data)
+                .then(response => response.data.news)
+                .then(news => {
+                    this.news = news
+                    setTimeout(() => {
+                        $('#index-news-carousel').slick({
+                            infinite: true,
+                            dots: true,
+                            slidesToShow: 4,
+                            slidesToScroll: 4,
+                            autoplay: true,
+                            autoplaySpeed: 2000,
+                            responsive: [
+                                {
+                                    breakpoint: 768,
+                                    settings: {
+                                        arrows: false,
+                                        centerMode: true,
+                                        centerPadding: '45px',
+                                        slidesToShow: 1
+                                    }
+                                },
+                                {
+                                    breakpoint: 480,
+                                    settings: {
+                                        arrows: false,
+                                        centerMode: true,
+                                        centerPadding: '45px',
+                                        slidesToShow: 1
+                                    }
+                                }
+                            ]
+                        });
+                    }, 1)
+                })
         },
         computed: {}
     }

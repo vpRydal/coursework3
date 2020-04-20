@@ -3,6 +3,7 @@
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserSeeder extends Seeder
@@ -30,8 +31,7 @@ class UserSeeder extends Seeder
             'password' => Hash::make('funt1974'),
             'email' => 'i.am.alex2k@mail.ru',
             'role_id' => $rolesId['admin'],
-            'remember_token' => Str::random(10),
-            'api_token' => Str::random(random_int(30, 35)),
+            'remember_token' => Str::random(random_int(30, 35)),
         ];
         // default user
         $users[] = [
@@ -40,7 +40,6 @@ class UserSeeder extends Seeder
             'email' => 'stefanov-2000@mail.ru',
             'role_id' => $rolesId['default_user'],
             'remember_token' => Str::random(10),
-            'api_token' => Str::random(random_int(30, 35))
         ];
 
         foreach ($users as $user)

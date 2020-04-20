@@ -18,16 +18,27 @@ class LoginController extends Controller
         return response()->json(['success' => true]);
     }
 
-    public function login(Request $request)
+    public function authenticated(Request $request, User $user)
     {
-        Auth::attempt(['email' => $request->email, 'password' => $request->password], $request->remember_me);
-        Auth::user()->role;
-        return response()->json(Auth::user());
+        $user->role;
+        return response()->json(['user' => $user]);
     }
 
-    public function user()
+    public function logout(Request $request)
+    {
+        Auth::guard('web')->logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response()->json(['success' => true]);
+
+    }
+
+    public function user(Request $request)
     {
         Auth::user()->role;
-        return Auth::user();
+        return response()->json(['user' => Auth::user()]);
     }
 }
