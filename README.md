@@ -1,4 +1,4 @@
-<h1 align="center">Courseworc3</h1>
+<h1 align="center">Coursework3</h1>
 <p>Usages</p>
 <ul>
     <li><a>Laravel</a></li>
