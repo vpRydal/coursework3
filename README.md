@@ -4,4 +4,4 @@
     <li><a>Laravel</a></li>
     <li><a>Vue</a></li>
 </ul>
-<p>Site on hosting <a href="http://allete-shop.mcdir.ru/" target="_blank">Allette</a></p>
+<p>Site on hosting <a href="http://allete-shop.mcdir.ru/" rel="follow">Allette</a></p>
